@@ -1,4 +1,3 @@
-// <!-- prompt("Who do we have today yo?"); -->
 
 //original question bank
 var questionBank = [
@@ -18,20 +17,21 @@ var questionBank = [
 
 //create a function to randomize question bank
 function shuffle(array) {
-  var m = array.length, t, i;
+    var m = array.length,
+        t, i;
 
-  // While there remain elements to shuffle…
-  while (m) {
+    // While there remain elements to shuffle…
+    while (m) {
 
-    // Pick a remaining element…
-    i = Math.floor(Math.random() * m--);
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * m--);
 
-    // And swap it with the current element.
-    t = array[m];
-    array[m] = array[i];
-    array[i] = t;
-  }
-  return array;
+        // And swap it with the current element.
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+    return array;
 }
 
 //randomizing the question bank
@@ -39,11 +39,11 @@ var randomizedBank = shuffle(questionBank);
 
 //create an array of monuments to be erected
 var monuments = [
-    "Colosseum",
-    "Pantheon",
-    "Trevi Fountain",
-    "Spanish Steps",
+    "Castel",
     "Vatican City",
+    "Trevi Fountain",
+    "Pantheon",
+    "Colosseum"
 ]
 
 // //get Username
@@ -53,14 +53,12 @@ var monuments = [
 //     alert(`Great, let's see how much you remember about this place!`);
 // } else {
 //     alert(`Time to take a trip yo!`);
-// }
+// };
 
 // //Display user instructions
-// alert("This is how the game works. You only have to answer 12 true and false questions, and erect 5 landmarks of Rome in the process.");
-// alert("For every question you answer correctly, a famous landmark of Rome would be erected. And for every question you answer wrongly, a Visgoth would take down the landmark you just built. Ready?");
-
-
-//randomize questions
+// alert("This is how the game works. You only have to answer 12 true and false questions.");
+// alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visgoth would take down the landmark you just built.")
+// alert("The goal is to erect 5 landmarks by the end of the game. Ready?")
 
 // //Indicate players name in header
 // var inputName = document.getElementsByClassName('inputName')[0];
@@ -70,12 +68,22 @@ var monuments = [
 //start from turn 1
 var turn = 0;
 var score = 0;
+var turnsLeft = document.getElementsByClassName('turnsLeft')[0];
 var trueButton = document.getElementsByClassName('true')[0];
 var falseButton = document.getElementsByClassName('false')[0];
 var gridSystem = document.getElementsByClassName('landmarksOfRome')[0];
+var visgoth = document.getElementById('visgoth');
+var smoke1 = document.getElementById('smoke1');
+var smoke2 = document.getElementById('smoke2');
+var smoke3 = document.getElementById('smoke3');
+var smoke4 = document.getElementById('smoke4');
+var smoke5 = document.getElementById('smoke5');
+var correctSound = document.getElementById('correct');
+var explosionSound = document.getElementById('explosion');
 
-//hide 5 icons at the start
+// hide 5 icons and visgoth at the start
 gridSystem.style.visibility = 'hidden';
+visgoth.style.visibility = 'hidden';
 
 //showcase question 1 before .appendchild happens
 var questionList = document.getElementsByClassName('questionDisplayed')[0];
@@ -83,105 +91,131 @@ questionList.textContent = randomizedBank[0].question;
 
 //append question number
 var title = document.getElementsByClassName('question')[0];
-title.textContent=`Question ${turn+1}`
+title.textContent = `Question ${turn+1}`
 
 //create a function that:
 var responseHandler = function(event) {
-    // checks if answer is correct
+// checks if answer is correct
     if (event.target.classList[0] === randomizedBank[turn].answer) {
         var newMonument = document.createElement('li');
         newMonument.setAttribute('type', '1');
         newMonument.setAttribute('class', 'monumentsList');
         newMonument.textContent = monuments[score];
-        //landmark icons should appear in sequence
-        var landmarkIcons = document.getElementsByClassName('icons');
-        landmarkIcons[score].style.visibility = 'visible';
         //landmark names should appear in sequence
         var monumentsArray = document.getElementsByClassName('monuments')[0];
         monumentsArray.appendChild(newMonument);
+        //landmark icons should appear in sequence
+        var landmarkIcons = document.getElementsByClassName('icons');
+        landmarkIcons[score].style.visibility = 'visible';
         //add to the existing score
         score++;
+        //check counter turns green
+        var checkCounter = document.getElementsByClassName('check')[0];
+        checkCounter.style.backgroundColor = "rgb(" + 154 + "," + 205 + "," + 50 + "," + 0.5 +")";
+        checkCounter.style.color= "rgb(" + 0 + "," + 100 + "," + 0 + ")";
+        checkCounter.style.borderStyle= 'none';
+        checkCounter.textContent = "Correct!";
+        //insert code to make sound appear
+        correctSound.play();
 
     } else {
         var myList = document.querySelector('ul');
+        var landmarkIcons = document.getElementsByClassName('icons');
         if (myList.lastChild) {
-            //if there is a child in landmarks icons list, then remove it from sight
-            var landmarkIcons = document.getElementsByClassName('icons');
-            landmarkIcons[score].style.visibility = 'hidden'
-            //remove landmark text if answer is wrong
-
-             //once both icons and text are removed, remove the child
-            myList.removeChild(myList.lastChild);
             //since player answered wrongly, reduce score by 1
             score--;
-        } else {
-            score = 0
+            //visgoth appears
+            visgoth.style.visibility = 'visible';
+            setInterval(function(){ visgoth.style.visibility = 'hidden'; }, 3000);
+            //remove the landmark name in the ordered list
+            myList.removeChild(myList.lastChild);
+            //smoke appears
+            setInterval(function() {
+            smoke[score].style.visibility = 'hidden'; }, 2000);
+            //if there is a child in landmarks icons list, then remove it from sight
+            landmarkIcons[score].style.visibility = 'hidden';
         }
+        //check counter turns red
+        var checkCounter = document.getElementsByClassName('check')[0];
+        checkCounter.style.backgroundColor = "rgb(" + 240 + "," + 128 + "," + 128 + "," + 0.5 +")";
+        checkCounter.style.color= "rgb(" + 129 + "," + 0 + "," + 0 +")";
+        checkCounter.style.borderStyle= 'none';
+        checkCounter.textContent = "Incorrect!";
+        //explosion sound is triggered
+        explosionSound.play();
+        //change turn counter
+        var count = 12 - turn;
+        turnsLeft.textContent = `Turns Left: ${count}`
     }
     //goes to the next turn
     turn++;
+    //change turn counter
+    var count = 12 - turn;
+    turnsLeft.textContent = `Turns Left: ${count}`
+    //change question number
+    title.textContent = `Question ${turn+1}`
+    //show next question
     questionList.textContent = randomizedBank[turn].question;
-    title.textContent=`Question ${turn+1}`
 }
 
-//TO DO: INSERT SMOKE + EXPLOSION AUDIO
+//Checking mechanism to ensure game ends
+    //send game completion message and allow user to restart game when all 5 statues are up
+
+setInterval(function(){
+    if (document.getElementsByTagName('li').length === 5) {
+            document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('true')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('false')[0].style.visibility = 'hidden';
+            var endOfGame = document.getElementsByClassName('question')[0];
+            endOfGame.textContent = 'Molto Bene!';
+            endOfGame.style.marginTop = '150px';
+            endOfGame.style.fontSize = '72px';
+            endOfGame.style.color = (128, 128, 128, 0.8);
+            var space = document.createElement('br');
+            var restartGame = document.createElement('button');
+            restartGame.setAttribute('class', 'restartButton');
+            restartGame.textContent = 'Restart Game';
+            restartGame.addEventListener('click', restart);
+            restartGame.style.fontSize = '35px';
+            restartGame.style.height = '60px';
+            restartGame.style.width = '160px';
+            endOfGame.appendChild(space);
+            endOfGame.appendChild(restartGame);
+        } else if (turn == 12) {
+            //prompt user to restart game when all questions are exhausted
+            document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('true')[0].style.visibility = 'hidden';
+            document.getElementsByClassName('false')[0].style.visibility = 'hidden';
+            var endOfGame = document.getElementsByClassName('question')[0];
+            endOfGame.textContent = 'You know more about Rome now, give this another go?';
+            endOfGame.style.margin = '80px 110px 0px 110px';
+            endOfGame.style.fontSize = '48px';
+            endOfGame.style.color = (128, 128, 128, 0.8);
+            var space = document.createElement('br');
+            var restartGame = document.createElement('button');
+            restartGame.setAttribute('class', 'restartButton');
+            restartGame.textContent = 'Restart Game';
+            restartGame.addEventListener('click', restart);
+            restartGame.style.marginTop = '10px';
+            restartGame.style.fontSize = '25px';
+            restartGame.style.height = '60px';
+            restartGame.style.width = '160px';
+            endOfGame.appendChild(space);
+            endOfGame.appendChild(restartGame);
+            //if user do not build 5 landmarks at the end of 12 questions, all buildings disappear
+            //INSERT CODE TO MAKE BUILDINGS DISAPPEAR
+        }
+    }, 1000);
 
 //create function to restart game
-function restart (event) {
+function restart(event) {
     location.reload();
 }
-
-    //send game completion message and allow user to restart game when all 5 statues are up
-    if (document.getElementsByTagName('li').length === 5) {
-        document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('true')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('false')[0].style.visibility = 'hidden';
-        var endOfGame = document.getElementsByClassName('question')[0];
-        endOfGame.textContent = 'Molto Bene!';
-        endOfGame.style.marginTop = '150px';
-        endOfGame.style.fontSize = '72px';
-        endOfGame.style.color = (128, 128, 128, 0.8);
-        var space = document.createElement('br');
-        var restartGame = document.createElement('button');
-        restartGame.setAttribute('class', 'restartButton');
-        restartGame.textContent = 'Restart Game';
-        restartGame.addEventListener('click',restart);
-        restartGame.style.fontSize = '25px';
-        restartGame.style.height = '60px';
-        restartGame.style.width = '160px';
-        endOfGame.appendChild(space);
-        endOfGame.appendChild(restartGame);
-    } else if (turn == 11) {
-        document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('true')[0].style.visibility = 'hidden';
-        document.getElementsByClassName('false')[0].style.visibility = 'hidden';
-        var endOfGame = document.getElementsByClassName('question')[0];
-        endOfGame.textContent = 'Give this another go?';
-        endOfGame.style.marginTop = '150px';
-        endOfGame.style.fontSize = '72px';
-        endOfGame.style.color = (128, 128, 128, 0.8);
-        var space = document.createElement('br');
-        var restartGame = document.createElement('button');
-        restartGame.setAttribute('class', 'restartButton');
-        restartGame.textContent = 'Restart Game';
-        restartGame.addEventListener('click',restart);
-        restartGame.style.fontSize = '25px';
-        restartGame.style.height = '60px';
-        restartGame.style.width = '160px';
-        endOfGame.appendChild(space);
-        endOfGame.appendChild(restartGame);
-    }
 
 //trigger next question once you click
 trueButton.addEventListener('click', responseHandler);
 falseButton.addEventListener('click', responseHandler);
 
-//green and red counter to show correct and wrong
-
-//if user do not build 5 landmarks at the end of 12 questions, all buildings disappear
-
 //create animation - visgoths attacking buildings
-
-

@@ -7,11 +7,28 @@ body {
 }
 
 .header1 {
-		font-size: 80px;
+		font-size: 70px;
 		color: rgb(105, 105, 105);
-		text-align: center;
-		margin-top: 20px;
-		margin-bottom: 20px;
+		text-align: left;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		margin-left: 30px;
+}
+
+.check {
+	font-family: 'Lora', serif;
+	font-size: 30px;
+	float: right;
+	text-align:center;
+	width: 150px;
+	border: 1px solid black;
+	margin: 10px;
+}
+
+.turnsLeft {
+	font-size: 35px;
+	float: right;
+	margin: 10px 60px 0 0;
 }
 
 .header2 {
@@ -22,13 +39,13 @@ body {
 .col-7 {
 		background-color: rgb(224, 224, 224, 0.2);
 		font-size: 72px;
-		height: 330px;
+		height: 340px;
 }
 
 .col-5 {
 		background-image: url('images/rome.jpg');
 		background-size: cover;
-		height: 330px;
+		height: 340px;
 		width: 250px;
 		background-repeat: no-repeat;
 		font-size: 72px;
@@ -53,6 +70,8 @@ body {
 		font-size: 42px;
 		color: rgb(128, 128, 128);
 		text-align: right;
+		margin: 5px 5px 0 0;
+
 }
 
 .questionDisplayed {
@@ -61,6 +80,7 @@ body {
 		color: rgb(128, 128, 128, 0.8);
 		line-height: 40px;
 		text-align: center;
+		padding: 0 30px;
 }
 
 .true {
@@ -119,6 +139,7 @@ button {
 #stpeters {
 		height: 50px;
 		margin-right: 10px;
+		padding-bottom: 10px;
 }
 
 #trevi {
@@ -135,35 +156,64 @@ button {
 		margin-bottom: 10px;
 }
 
-
-/*.visgoth {
-	height: 100px;
-	width: 100px;
-	position: absolute;
-}*/
-
-
-/*	z-index:
-	animation-name: shootingArrows
-	animation-duration: 3s
-}*/
-
-
-/*create from JS so that you can call it repeatedly*/
-
-
-/*
-@keyframes shootingArrows {
-	0% { top/bottom
-
-	}
-
-	100% {
-
-	}
-opacity 0 then 1
+#visgoth {
+	height: 60px;
+	margin: 0 0 0 10px;
 }
 
+#smoke1 {
+	height: 100px;
+}
 
-//have to change this if you want to manipulate z-index
-*/
+#smoke2 {
+	height: 100px;
+}
+
+#smoke3 {
+	height: 100px;
+}
+
+#smoke4 {
+	height: 100px;
+}
+
+#smoke5 {
+	height: 100px;
+}
+
+.overlay { position: relative; }
+
+.overlay #smoke1 {
+  position: absolute;
+  bottom: -2px;
+  right: 10px;
+  z-index: 1;
+}
+
+.overlay #smoke2 {
+  position: absolute;
+  bottom: -4px;
+  right: 6px;
+  z-index: 1;
+}
+
+.overlay #smoke3 {
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  z-index: 1;
+}
+
+.overlay #smoke4 {
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  z-index: 1;
+}
+
+.overlay #smoke5 {
+  position: absolute;
+  bottom: -2px;
+  right: 5px;
+  z-index: 1;
+}
