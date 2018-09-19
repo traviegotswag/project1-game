@@ -1,0 +1,169 @@
+body {
+		height: 200px;
+		font-family: 'Italianno', cursive;
+		background-image: url('images/background.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+}
+
+.header1 {
+		font-size: 80px;
+		color: rgb(105, 105, 105);
+		text-align: center;
+		margin-top: 20px;
+		margin-bottom: 20px;
+}
+
+.header2 {
+		font-size: 80px;
+		color: rgb(197, 179, 88, 0.7);
+}
+
+.col-7 {
+		background-color: rgb(224, 224, 224, 0.2);
+		font-size: 72px;
+		height: 330px;
+}
+
+.col-5 {
+		background-image: url('images/rome.jpg');
+		background-size: cover;
+		height: 330px;
+		width: 250px;
+		background-repeat: no-repeat;
+		font-size: 72px;
+		border: 1px solid rgb(105, 105, 105, 0.8);
+}
+
+.question {
+		font-size: 48px;
+		line-height: 60px;
+		text-align: center;
+		padding: 50 30 50 30;
+		margin-top: 20px;
+}
+
+.answer {
+		font-size: 48px;
+		text-align: center;
+		margin-top: 20px;
+}
+
+.landmarks {
+		font-size: 42px;
+		color: rgb(128, 128, 128);
+		text-align: right;
+}
+
+.questionDisplayed {
+		font-family: 'Lora', serif;
+		font-size: 30px;
+		color: rgb(128, 128, 128, 0.8);
+		line-height: 40px;
+		text-align: center;
+}
+
+.true {
+		font-family: 'Lora', serif;
+		font-size: 20px;
+		background-color: rgb(154, 205, 50, 0.5);
+		border: none;
+		border-spacing: 10px;
+		padding: 12px;
+		margin-right: 20px;
+}
+
+.false {
+		font-family: 'Lora', serif;
+		font-size: 20px;
+		background-color: rgb(240, 128, 128, 0.5);
+		border: none;
+		border-spacing: 10px;
+		padding: 12px;
+}
+
+button {
+		width: 120px;
+}
+
+.landmarksHeader {
+		font-size: 30px;
+		text-align: right;
+}
+
+.monuments {
+		font-family: 'Lora', serif;
+		font-size: 15px;
+		padding: 0px;
+		margin: 0px;
+		border: 0px;
+}
+
+.monumentsList {
+		max-height: 25px;
+		margin: 0px;
+		border: 0px;
+		padding: 0px;
+		text-align: right;
+		list-style-position: inside;
+}
+
+.landmarksOfRome {
+		font-size: 20px;
+}
+
+#castel {
+		height: 50px;
+}
+
+#stpeters {
+		height: 50px;
+		margin-right: 10px;
+}
+
+#trevi {
+		height: 40px;
+		margin-bottom: 10px;
+}
+
+#pantheon {
+		height: 40px;
+}
+
+#colo {
+		height: 60px;
+		margin-bottom: 10px;
+}
+
+
+/*.visgoth {
+	height: 100px;
+	width: 100px;
+	position: absolute;
+}*/
+
+
+/*	z-index:
+	animation-name: shootingArrows
+	animation-duration: 3s
+}*/
+
+
+/*create from JS so that you can call it repeatedly*/
+
+
+/*
+@keyframes shootingArrows {
+	0% { top/bottom
+
+	}
+
+	100% {
+
+	}
+opacity 0 then 1
+}
+
+
+//have to change this if you want to manipulate z-index
+*/
