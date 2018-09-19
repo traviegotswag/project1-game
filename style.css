@@ -16,19 +16,19 @@ body {
 }
 
 .check {
-	font-family: 'Lora', serif;
-	font-size: 30px;
-	float: right;
-	text-align:center;
-	width: 150px;
-	border: 1px solid black;
-	margin: 10px;
+		font-family: 'Lora', serif;
+		font-size: 30px;
+		color: white;
+		float: right;
+		text-align: center;
+		width: 150px;
+		margin: 40px;
 }
 
 .turnsLeft {
-	font-size: 35px;
-	float: right;
-	margin: 10px 60px 0 0;
+		font-size: 35px;
+		float: right;
+		margin: 40px 0 0 0;
 }
 
 .header2 {
@@ -49,7 +49,7 @@ body {
 		width: 250px;
 		background-repeat: no-repeat;
 		font-size: 72px;
-		border: 1px solid rgb(105, 105, 105, 0.8);
+		border: 1px solid rgb(105, 105, 105, 0.4);
 }
 
 .question {
@@ -71,7 +71,6 @@ body {
 		color: rgb(128, 128, 128);
 		text-align: right;
 		margin: 5px 5px 0 0;
-
 }
 
 .questionDisplayed {
@@ -109,6 +108,7 @@ button {
 .landmarksHeader {
 		font-size: 30px;
 		text-align: right;
+		margin: 0 5px 0 0;
 }
 
 .monuments {
@@ -157,63 +157,65 @@ button {
 }
 
 #visgoth {
-	height: 60px;
-	margin: 0 0 0 10px;
+		height: 60px;
+		margin: 0 0 0 10px;
 }
 
 #smoke1 {
-	height: 100px;
+		height: 100px;
 }
 
 #smoke2 {
-	height: 100px;
+		height: 100px;
 }
 
 #smoke3 {
-	height: 100px;
+		height: 100px;
 }
 
 #smoke4 {
-	height: 100px;
+		height: 100px;
 }
 
 #smoke5 {
-	height: 100px;
+		height: 100px;
 }
 
-.overlay { position: relative; }
+.overlay {
+		position: relative;
+}
 
 .overlay #smoke1 {
-  position: absolute;
-  bottom: -2px;
-  right: 10px;
-  z-index: 1;
+		position: absolute;
+		bottom: -2px;
+		right: 10px;
+		z-index: 1;
 }
 
 .overlay #smoke2 {
-  position: absolute;
-  bottom: -4px;
-  right: 6px;
-  z-index: 1;
+		position: absolute;
+		bottom: -4px;
+		right: 6px;
+		z-index: 1;
 }
 
 .overlay #smoke3 {
-  position: absolute;
-  bottom: -10px;
-  right: 10px;
-  z-index: 1;
+		position: absolute;
+		bottom: -10px;
+		right: 10px;
+		z-index: 1;
 }
 
 .overlay #smoke4 {
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
-  z-index: 1;
+		position: absolute;
+		bottom: 10px;
+		right: 15px;
+		z-index: 1;
 }
 
 .overlay #smoke5 {
-  position: absolute;
-  bottom: -2px;
-  right: 5px;
-  z-index: 1;
+		position: absolute;
+		bottom: -2px;
+		right: 5px;
+		z-index: 1;
 }

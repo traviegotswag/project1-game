@@ -1,4 +1,3 @@
-
 //original question bank
 var questionBank = [
     { question: 'According to folklore, Rome was founded by Romasaurus.', answer: 'false' },
@@ -12,7 +11,7 @@ var questionBank = [
     { question: 'About 1000 Euros are collected every night at the Trevi fountain.', answer: 'false' },
     { question: 'Currently, Rome has 280 fountains and more than 900 churches.', answer: 'true' },
     { question: 'Rome is the second most popular tourist attraction in Italy, after Milan.', answer: 'false' },
-    { question: 'Rome has been often defined as capital of two states because the Vatican City is an independent country inside the city boundaries of Rome.', answer: 'true' },
+    { question: 'Rome is often defined as the capital of 2 states as the Vatican City is an independent country inside the boundaries of Rome.', answer: 'true' },
 ];
 
 //create a function to randomize question bank
@@ -56,9 +55,9 @@ var monuments = [
 // };
 
 // //Display user instructions
-// alert("This is how the game works. You only have to answer 12 true and false questions.");
-// alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visgoth would take down the landmark you just built.")
-// alert("The goal is to erect 5 landmarks by the end of the game. Ready?")
+// alert("This game is simple - all you need to do is to answer 12 true and false questions.");
+// alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visgoth would destroy the landmark you just built.")
+// alert("The goal is to get 5 landmarks up by the end of the game (at the 12th turn). You ready?")
 
 // //Indicate players name in header
 // var inputName = document.getElementsByClassName('inputName')[0];
@@ -78,8 +77,15 @@ var smoke2 = document.getElementById('smoke2');
 var smoke3 = document.getElementById('smoke3');
 var smoke4 = document.getElementById('smoke4');
 var smoke5 = document.getElementById('smoke5');
+var smokeArray = [smoke1, smoke2, smoke3, smoke4, smoke5];
+smoke1.style.visibility='hidden';
+smoke2.style.visibility='hidden';
+smoke3.style.visibility='hidden';
+smoke4.style.visibility='hidden';
+smoke5.style.visibility='hidden';
 var correctSound = document.getElementById('correct');
 var explosionSound = document.getElementById('explosion');
+var construction = document.getElementById('construction');
 
 // hide 5 icons and visgoth at the start
 gridSystem.style.visibility = 'hidden';
@@ -95,7 +101,7 @@ title.textContent = `Question ${turn+1}`
 
 //create a function that:
 var responseHandler = function(event) {
-// checks if answer is correct
+    // checks if answer is correct
     if (event.target.classList[0] === randomizedBank[turn].answer) {
         var newMonument = document.createElement('li');
         newMonument.setAttribute('type', '1');
@@ -106,108 +112,119 @@ var responseHandler = function(event) {
         monumentsArray.appendChild(newMonument);
         //landmark icons should appear in sequence
         var landmarkIcons = document.getElementsByClassName('icons');
-        landmarkIcons[score].style.visibility = 'visible';
+        setTimeout(function(){ landmarkIcons[score].style.visibility = 'visible';}, 2400);
+
         //add to the existing score
         score++;
+
         //check counter turns green
         var checkCounter = document.getElementsByClassName('check')[0];
-        checkCounter.style.backgroundColor = "rgb(" + 154 + "," + 205 + "," + 50 + "," + 0.5 +")";
-        checkCounter.style.color= "rgb(" + 0 + "," + 100 + "," + 0 + ")";
-        checkCounter.style.borderStyle= 'none';
+        checkCounter.style.backgroundColor = "rgb(" + 154 + "," + 205 + "," + 50 + "," + 0.5 + ")";
+        checkCounter.style.color = "rgb(" + 0 + "," + 100 + "," + 0 + ")";
+        checkCounter.style.borderStyle = 'none';
         checkCounter.textContent = "Correct!";
+
         //insert code to make sound appear
         correctSound.play();
+        setTimeout(function(){ construction.play();}, 800);
 
     } else {
         var myList = document.querySelector('ul');
         var landmarkIcons = document.getElementsByClassName('icons');
         if (myList.lastChild) {
-            //since player answered wrongly, reduce score by 1
-            score--;
-            //visgoth appears
-            visgoth.style.visibility = 'visible';
-            setInterval(function(){ visgoth.style.visibility = 'hidden'; }, 3000);
+            //visgoth appears for 4seconds, after an interval of 0.2s
+            setTimeout(function(){ visgoth.style.visibility = 'visible';}, 200);
+            setInterval(function() { visgoth.style.visibility = 'hidden'; }, 4000);
+
             //remove the landmark name in the ordered list
             myList.removeChild(myList.lastChild);
-            //smoke appears
-            setInterval(function() {
-            smoke[score].style.visibility = 'hidden'; }, 2000);
-            //if there is a child in landmarks icons list, then remove it from sight
-            landmarkIcons[score].style.visibility = 'hidden';
+
+            //smoke appears after visgoth appears
+            setTimeout(function() { smokeArray[score].style.visibility='visible'; }, 600);
+            setTimeout(function(){ smokeArray[score].style.visibility = 'hidden';}, 3000);
+
+            //since player answered wrongly, reduce score by 1
+            score--;
+
+            //landmark disappears after 1sec
+            setTimeout(function(){ landmarkIcons[score].style.visibility = 'hidden';}, 3000);
         }
         //check counter turns red
         var checkCounter = document.getElementsByClassName('check')[0];
-        checkCounter.style.backgroundColor = "rgb(" + 240 + "," + 128 + "," + 128 + "," + 0.5 +")";
-        checkCounter.style.color= "rgb(" + 129 + "," + 0 + "," + 0 +")";
-        checkCounter.style.borderStyle= 'none';
+        checkCounter.style.backgroundColor = "rgb(" + 240 + "," + 128 + "," + 128 + "," + 0.5 + ")";
+        checkCounter.style.color = "rgb(" + 129 + "," + 0 + "," + 0 + ")";
+        checkCounter.style.borderStyle = 'none';
         checkCounter.textContent = "Incorrect!";
         //explosion sound is triggered
-        explosionSound.play();
+        setTimeout(function(){ explosionSound.play();}, 1200);
         //change turn counter
         var count = 12 - turn;
         turnsLeft.textContent = `Turns Left: ${count}`
     }
     //goes to the next turn
     turn++;
+
     //change turn counter
     var count = 12 - turn;
     turnsLeft.textContent = `Turns Left: ${count}`
+
     //change question number
     title.textContent = `Question ${turn+1}`
+
     //show next question
     questionList.textContent = randomizedBank[turn].question;
 }
 
 //Checking mechanism to ensure game ends
-    //send game completion message and allow user to restart game when all 5 statues are up
+//send game completion message and allow user to restart game when all 5 statues are up
 
-setInterval(function(){
+setInterval(function() {
     if (document.getElementsByTagName('li').length === 5) {
-            document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('true')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('false')[0].style.visibility = 'hidden';
-            var endOfGame = document.getElementsByClassName('question')[0];
-            endOfGame.textContent = 'Molto Bene!';
-            endOfGame.style.marginTop = '150px';
-            endOfGame.style.fontSize = '72px';
-            endOfGame.style.color = (128, 128, 128, 0.8);
-            var space = document.createElement('br');
-            var restartGame = document.createElement('button');
-            restartGame.setAttribute('class', 'restartButton');
-            restartGame.textContent = 'Restart Game';
-            restartGame.addEventListener('click', restart);
-            restartGame.style.fontSize = '35px';
-            restartGame.style.height = '60px';
-            restartGame.style.width = '160px';
-            endOfGame.appendChild(space);
-            endOfGame.appendChild(restartGame);
-        } else if (turn == 12) {
-            //prompt user to restart game when all questions are exhausted
-            document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('true')[0].style.visibility = 'hidden';
-            document.getElementsByClassName('false')[0].style.visibility = 'hidden';
-            var endOfGame = document.getElementsByClassName('question')[0];
-            endOfGame.textContent = 'You know more about Rome now, give this another go?';
-            endOfGame.style.margin = '80px 110px 0px 110px';
-            endOfGame.style.fontSize = '48px';
-            endOfGame.style.color = (128, 128, 128, 0.8);
-            var space = document.createElement('br');
-            var restartGame = document.createElement('button');
-            restartGame.setAttribute('class', 'restartButton');
-            restartGame.textContent = 'Restart Game';
-            restartGame.addEventListener('click', restart);
-            restartGame.style.marginTop = '10px';
-            restartGame.style.fontSize = '25px';
-            restartGame.style.height = '60px';
-            restartGame.style.width = '160px';
-            endOfGame.appendChild(space);
-            endOfGame.appendChild(restartGame);
-            //if user do not build 5 landmarks at the end of 12 questions, all buildings disappear
-            //INSERT CODE TO MAKE BUILDINGS DISAPPEAR
-        }
-    }, 1000);
+        document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('true')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('false')[0].style.visibility = 'hidden';
+        var endOfGame = document.getElementsByClassName('question')[0];
+        endOfGame.textContent = 'Molto Bene!';
+        endOfGame.style.marginTop = '150px';
+        endOfGame.style.fontSize = '72px';
+        endOfGame.style.color = (128, 128, 128, 0.8);
+        var space = document.createElement('br');
+        var restartGame = document.createElement('button');
+        restartGame.setAttribute('class', 'restartButton');
+        restartGame.textContent = 'Restart Game';
+        restartGame.addEventListener('click', restart);
+        restartGame.style.fontSize = '35px';
+        restartGame.style.height = '60px';
+        restartGame.style.width = '160px';
+        endOfGame.appendChild(space);
+        endOfGame.appendChild(restartGame);
+    } else if (turn == 12) {
+        //prompt user to restart game when all questions are exhausted
+        document.getElementsByClassName('questionDisplayed')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('answer')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('true')[0].style.visibility = 'hidden';
+        document.getElementsByClassName('false')[0].style.visibility = 'hidden';
+        var endOfGame = document.getElementsByClassName('question')[0];
+        endOfGame.textContent = 'You know more about Rome now, give this another go?';
+        endOfGame.style.margin = '80px 110px 0px 110px';
+        endOfGame.style.fontSize = '48px';
+        endOfGame.style.color = (128, 128, 128, 0.8);
+        var space = document.createElement('br');
+        var restartGame = document.createElement('button');
+        restartGame.setAttribute('class', 'restartButton');
+        restartGame.textContent = 'Restart Game';
+        restartGame.addEventListener('click', restart);
+        restartGame.style.marginTop = '10px';
+        restartGame.style.fontSize = '25px';
+        restartGame.style.height = '60px';
+        restartGame.style.width = '160px';
+        endOfGame.appendChild(space);
+        endOfGame.appendChild(restartGame);
+        //if user do not build 5 landmarks at the end of 12 questions, all buildings disappear
+        //INSERT CODE TO MAKE BUILDINGS DISAPPEAR
+    }
+}, 1000);
 
 //create function to restart game
 function restart(event) {
