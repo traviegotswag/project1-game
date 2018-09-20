@@ -45,24 +45,24 @@ var monuments = [
     "Colosseum"
 ]
 
-// //get Username
-// var userInput = prompt("How do we address you?");
-// var stateOfUser = prompt(`${userInput}, have you been to Rome before? Input y or n.`);
-// if (stateOfUser === "y") {
-//     alert(`Great, let's see how much you remember about this place!`);
-// } else {
-//     alert(`Time to take a trip yo!`);
-// };
+//get Username
+var userInput = prompt("How do we address you?");
+var stateOfUser = prompt(`${userInput}, have you been to Rome before? Input y or n.`);
+if (stateOfUser === "y") {
+    alert(`Great, let's see how much you remember about this place!`);
+} else {
+    alert(`Time to take a trip yo!`);
+};
 
-// //Display user instructions
-// alert("This game is simple - all you need to do is to answer 12 true and false questions.");
-// alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visgoth would destroy the landmark you just built.")
-// alert("The goal is to get 5 landmarks up by the end of the game (at the 12th turn). You ready?")
+//Display user instructions
+alert("This game is simple - all you need to do is to answer 12 true and false questions.");
+alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visgoth would destroy the landmark you just built.")
+alert("The goal is to get 5 landmarks up by the end of the game (at the 12th turn). You ready?")
 
-// //Indicate players name in header
-// var inputName = document.getElementsByClassName('inputName')[0];
-// inputName.textContent = userInput;
-// inputName.style.textTransform = 'capitalize';
+//Indicate players name in header
+var inputName = document.getElementsByClassName('inputName')[0];
+inputName.textContent = userInput;
+inputName.style.textTransform = 'capitalize';
 
 //start from turn 1
 var turn = 0;
