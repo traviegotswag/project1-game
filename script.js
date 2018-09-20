@@ -78,11 +78,11 @@ var smoke3 = document.getElementById('smoke3');
 var smoke4 = document.getElementById('smoke4');
 var smoke5 = document.getElementById('smoke5');
 var smokeArray = [smoke1, smoke2, smoke3, smoke4, smoke5];
-smoke1.style.visibility='hidden';
-smoke2.style.visibility='hidden';
-smoke3.style.visibility='hidden';
-smoke4.style.visibility='hidden';
-smoke5.style.visibility='hidden';
+smoke1.style.visibility = 'hidden';
+smoke2.style.visibility = 'hidden';
+smoke3.style.visibility = 'hidden';
+smoke4.style.visibility = 'hidden';
+smoke5.style.visibility = 'hidden';
 var correctSound = document.getElementById('correct');
 var explosionSound = document.getElementById('explosion');
 var construction = document.getElementById('construction');
@@ -97,7 +97,7 @@ questionList.textContent = randomizedBank[0].question;
 
 //append question number
 var title = document.getElementsByClassName('question')[0];
-title.textContent = `Question ${turn+1}`
+title.textContent = `Question ${turn+1}`;
 
 //create a function that:
 var responseHandler = function(event) {
@@ -107,15 +107,18 @@ var responseHandler = function(event) {
         newMonument.setAttribute('type', '1');
         newMonument.setAttribute('class', 'monumentsList');
         newMonument.textContent = monuments[score];
+
         //landmark names should appear in sequence
         var monumentsArray = document.getElementsByClassName('monuments')[0];
         monumentsArray.appendChild(newMonument);
+
         //landmark icons should appear in sequence
         var landmarkIcons = document.getElementsByClassName('icons');
-        setTimeout(function(){ landmarkIcons[score].style.visibility = 'visible';}, 2400);
-
-        //add to the existing score
-        score++;
+        setTimeout(function() {
+            landmarkIcons[score].style.visibility = 'visible';
+            //add to the existing score
+            score++;
+        }, 2400);
 
         //check counter turns green
         var checkCounter = document.getElementsByClassName('check')[0];
@@ -126,28 +129,28 @@ var responseHandler = function(event) {
 
         //insert code to make sound appear
         correctSound.play();
-        setTimeout(function(){ construction.play();}, 800);
+        setTimeout(function() { construction.play(); }, 800);
 
     } else {
         var myList = document.querySelector('ul');
         var landmarkIcons = document.getElementsByClassName('icons');
         if (myList.lastChild) {
             //visgoth appears for 4seconds, after an interval of 0.2s
-            setTimeout(function(){ visgoth.style.visibility = 'visible';}, 200);
+            setTimeout(function() { visgoth.style.visibility = 'visible'; }, 200);
             setInterval(function() { visgoth.style.visibility = 'hidden'; }, 4000);
 
             //remove the landmark name in the ordered list
             myList.removeChild(myList.lastChild);
 
             //smoke appears after visgoth appears
-            setTimeout(function() { smokeArray[score].style.visibility='visible'; }, 600);
-            setTimeout(function(){ smokeArray[score].style.visibility = 'hidden';}, 3000);
+            setTimeout(function() { smokeArray[score].style.visibility = 'visible'; }, 600);
+            setTimeout(function() { smokeArray[score].style.visibility = 'hidden'; }, 3000);
 
             //since player answered wrongly, reduce score by 1
             score--;
 
             //landmark disappears after 1sec
-            setTimeout(function(){ landmarkIcons[score].style.visibility = 'hidden';}, 3000);
+            setTimeout(function() { landmarkIcons[score].style.visibility = 'hidden'; }, 3000);
         }
         //check counter turns red
         var checkCounter = document.getElementsByClassName('check')[0];
@@ -156,7 +159,7 @@ var responseHandler = function(event) {
         checkCounter.style.borderStyle = 'none';
         checkCounter.textContent = "Incorrect!";
         //explosion sound is triggered
-        setTimeout(function(){ explosionSound.play();}, 1200);
+        setTimeout(function() { explosionSound.play(); }, 1200);
         //change turn counter
         var count = 12 - turn;
         turnsLeft.textContent = `Turns Left: ${count}`
@@ -166,10 +169,10 @@ var responseHandler = function(event) {
 
     //change turn counter
     var count = 12 - turn;
-    turnsLeft.textContent = `Turns Left: ${count}`
+    turnsLeft.textContent = `Turns Left: ${count}`;
 
     //change question number
-    title.textContent = `Question ${turn+1}`
+    title.textContent = `Question ${turn+1}`;
 
     //show next question
     questionList.textContent = randomizedBank[turn].question;
@@ -185,7 +188,7 @@ setInterval(function() {
         document.getElementsByClassName('true')[0].style.visibility = 'hidden';
         document.getElementsByClassName('false')[0].style.visibility = 'hidden';
         var endOfGame = document.getElementsByClassName('question')[0];
-        endOfGame.textContent = 'Molto Bene!';
+        endOfGame.textContent = 'Prego!';
         endOfGame.style.marginTop = '150px';
         endOfGame.style.fontSize = '72px';
         endOfGame.style.color = (128, 128, 128, 0.8);
@@ -224,7 +227,7 @@ setInterval(function() {
         //if user do not build 5 landmarks at the end of 12 questions, all buildings disappear
         //INSERT CODE TO MAKE BUILDINGS DISAPPEAR
     }
-}, 1000);
+}, 5000);
 
 //create function to restart game
 function restart(event) {
