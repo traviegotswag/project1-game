@@ -56,7 +56,7 @@ if (stateOfUser === "y") {
 
 //Display user instructions
 alert("This game is simple - all you need to do is to answer 12 true and false questions.");
-alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visgoth would destroy the landmark you just built.")
+alert("For every question you answer correctly, a famous landmark of Rome would be built. And for every question you answer wrongly, a Visigoth soldier would destroy the landmark you just built.")
 alert("The goal is to get 5 landmarks up by the end of the game (at the 12th turn). You ready?")
 
 //Indicate players name in header
